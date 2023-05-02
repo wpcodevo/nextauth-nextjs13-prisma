@@ -1,37 +1,16 @@
-import {
-  LoginButton,
-  LogoutButton,
-  ProfileButton,
-  RegisterButton,
-} from "@/components/buttons.component";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import { User } from "@/components/user.component";
+import Header from "@/components/header.component";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-  console.log(session);
-
   return (
-    <main
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "70vh",
-      }}
-    >
-      <div>
-        <LoginButton />
-        <RegisterButton />
-        <LogoutButton />
-        <ProfileButton />
-
-        <h1>Server Session</h1>
-        <pre>{JSON.stringify(session)}</pre>
-
-        <User />
-      </div>
-    </main>
+    <>
+      <Header />
+      <section className="bg-ct-blue-600 min-h-screen pt-20">
+        <div className="max-w-4xl mx-auto bg-ct-dark-100 rounded-md h-[20rem] flex justify-center items-center">
+          <p className="text-3xl font-semibold">
+            Welcome to NextAuth with Prisma ORM and Next.js 13
+          </p>
+        </div>
+      </section>
+    </>
   );
 }
