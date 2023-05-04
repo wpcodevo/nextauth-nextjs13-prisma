@@ -99,7 +99,7 @@ export const LoginForm = () => {
       >
         <img
           className="pr-2"
-          src="/google.svg"
+          src="/images/google.svg"
           alt=""
           style={{ height: "2rem" }}
         />
@@ -113,7 +113,7 @@ export const LoginForm = () => {
       >
         <img
           className="pr-2"
-          src="/github.svg"
+          src="/images/github.svg"
           alt=""
           style={{ height: "2.2rem" }}
         />
