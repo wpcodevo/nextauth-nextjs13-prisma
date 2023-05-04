@@ -1,6 +1,5 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
 import Header from "@/components/header.component";
 
 export default async function Profile() {
@@ -22,7 +21,7 @@ export default async function Profile() {
               <div className="flex items-center gap-8">
                 <div>
                   <img
-                    src={user.image ? user.image : `/images/default.png`}
+                    src={user.image ? user.image : "/images/default.png"}
                     className="max-h-36"
                     alt={`profile photo of ${user.name}`}
                   />
