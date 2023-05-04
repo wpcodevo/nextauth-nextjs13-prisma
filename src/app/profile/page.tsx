@@ -22,7 +22,7 @@ export default async function Profile() {
               <div className="flex items-center gap-8">
                 <div>
                   <img
-                    src={user.image ? user.image : `/images/default.png`}
+                    src={user.image ? user.image : "/images/default.png"}
                     className="max-h-36"
                     alt={`profile photo of ${user.name}`}
                   />
