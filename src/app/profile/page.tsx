@@ -1,7 +1,7 @@
 // "use client";
 
+import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 
 // import { useSession } from "next-auth/react";
@@ -59,11 +59,11 @@ type User = {
 // }
 
 export default async function Profile() {
-  //   const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
 
-  //   if (!session) {
-  //     redirect("/api/auth/signin");
-  //   }
+  // if (!session) {
+  //   redirect("/api/auth/signin");
+  // }
 
   const users: User[] = await fetch(
     "https://jsonplaceholder.typicode.com/users"

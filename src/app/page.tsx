@@ -5,8 +5,8 @@ import {
   RegisterButton,
 } from "@/components/buttons.component";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 import { User } from "@/components/user.component";
+import { authOptions } from "@/lib/auth";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
