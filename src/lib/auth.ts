@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { compare } from "bcryptjs";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -6,6 +7,9 @@ import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
+  // This is a temporary fix for prisma client.
+  // @see https://github.com/prisma/prisma/issues/16117
+  adapter: PrismaAdapter(prisma as any),
   pages: {
     signIn: "/login",
   },
@@ -42,7 +46,7 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
-        if (!user || !(await compare(credentials.password, user.password))) {
+        if (!user || !(await compare(credentials.password, user.password!))) {
           return null;
         }
 
