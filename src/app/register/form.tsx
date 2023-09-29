@@ -6,19 +6,21 @@ import { ChangeEvent, useState } from "react";
 export const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
-    name: "",
-    email: "",
-    password: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    privacyPolicy: true,
   });
   const [error, setError] = useState("");
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setFormValues({ name: "", email: "", password: "" });
+    setFormValues({ firstName: "", lastName: "", email: "", password: "", privacyPolicy: true });
 
     try {
-      const res = await fetch("/api/register", {
+      const res = await fetch("https://api.proflab.am/api/auth/sign-up", {
         method: "POST",
         body: JSON.stringify(formValues),
         headers: {
@@ -40,10 +42,9 @@ export const RegisterForm = () => {
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormValues({ ...formValues, [name]: value });
+    const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+    setFormValues({ ...formValues, [event.target.name]: value });
   };
-
   const input_style =
     "form-control block w-full px-4 py-5 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none";
 
@@ -55,11 +56,22 @@ export const RegisterForm = () => {
       <div className="mb-6">
         <input
           required
-          type="name"
-          name="name"
-          value={formValues.name}
+          type="firstName"
+          name="firstName"
+          value={formValues.firstName}
           onChange={handleChange}
-          placeholder="Name"
+          placeholder="firstName"
+          className={`${input_style}`}
+        />
+      </div>
+      <div className="mb-6">
+        <input
+          required
+          type="lastName"
+          name="lastName"
+          value={formValues.lastName}
+          onChange={handleChange}
+          placeholder="lastName"
           className={`${input_style}`}
         />
       </div>
@@ -84,6 +96,18 @@ export const RegisterForm = () => {
           placeholder="Password"
           className={`${input_style}`}
         />
+      </div>
+
+
+      <div className="mb-6">
+      <input
+          required
+          type="checkbox"
+          name="privacyPolicy"
+          checked={formValues.privacyPolicy}
+          onChange={handleChange}
+/>
+            <label >privacyPolicy</label>
       </div>
       <button
         type="submit"

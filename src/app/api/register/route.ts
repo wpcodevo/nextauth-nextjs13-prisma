@@ -4,24 +4,27 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { name, email, password } = (await req.json()) as {
-      name: string;
+    const { firstName, lastName, email, password } = (await req.json()) as {
+      firstName: string;
+      lastName: string;
       email: string;
       password: string;
+      privacyPolicy: boolean;
     };
     const hashed_password = await hash(password, 12);
 
     const user = await prisma.user.create({
       data: {
-        name,
+        name: firstName + ' ' + lastName,
         email: email.toLowerCase(),
         password: hashed_password,
+        privacyPolicy: true
       },
     });
 
     return NextResponse.json({
       user: {
-        name: user.name,
+        firstName: user.name,
         email: user.email,
       },
     });

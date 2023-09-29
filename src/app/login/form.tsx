@@ -15,33 +15,39 @@ export const LoginForm = () => {
 
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/profile";
+console.log(callbackUrl);
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      setFormValues({ email: "", password: "" });
+const onSubmit = async (e: React.FormEvent) => { 
+  e.preventDefault();
+  try {
+    setLoading(true);
+    setFormValues({ email: "", password: "" });
 
-      const res = await signIn("credentials", {
-        redirect: false,
+    const response = await fetch("https://api.proflab.am/api/auth/sign-in", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         email: formValues.email,
         password: formValues.password,
-        callbackUrl,
-      });
+      }),
+    });
 
-      setLoading(false);
+    const data = await response.json();
 
-      console.log(res);
-      if (!res?.error) {
-        router.push(callbackUrl);
-      } else {
-        setError("invalid email or password");
-      }
-    } catch (error: any) {
-      setLoading(false);
-      setError(error);
+    setLoading(false);
+
+    if (response.ok) {
+      router.push(callbackUrl);
+    } else {
+      setError("Invalid email or password");
     }
-  };
+  } catch (error: any) {
+    setLoading(false);
+    setError(error);
+  }
+};
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

@@ -6,6 +6,7 @@ import Link from "next/link";
 const Header = () => {
   const { data: session } = useSession();
   const user = session?.user;
+console.log(user);
 
   return (
     <header className="bg-white h-20">
