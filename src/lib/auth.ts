@@ -27,6 +27,7 @@ export const authOptions: NextAuthOptions = {
     }),
     CredentialsProvider({
       name: "Sign in",
+      id: "credentials",
       credentials: {
         email: {
           label: "Email",
@@ -82,4 +83,5 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
   },
+  secret: process.env.NEXTAUTH_SECRET
 };
